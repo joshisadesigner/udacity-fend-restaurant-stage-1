@@ -176,10 +176,12 @@ createRestaurantHTML = restaurant => {
     image.alt = `Restaurant ${restaurant.name} image.`;
     li.append(image);
 
-    const name = document.createElement("a");
-    name.href = DBHelper.urlForRestaurant(restaurant);
-    name.innerHTML = restaurant.name;
+    const name = document.createElement("h3");
+    const nameLink = document.createElement("a");
+    nameLink.href = DBHelper.urlForRestaurant(restaurant);
+    nameLink.innerHTML = restaurant.name;
     name.classList = "title";
+    name.append(nameLink);
     li.append(name);
 
     const neighborhood = document.createElement("p");

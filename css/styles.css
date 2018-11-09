@@ -22,7 +22,7 @@ ul, li {
 	color: #333;
 }
 a {
-	color: orange;
+	color: #365367;
 	text-decoration: none;
 }
 a:hover, a:focus {
@@ -224,7 +224,6 @@ nav h1 a {
   border-radius: 1px;
 }
 .restaurants-list li .title {
-  color: #417ca3;
   font-family: Arial,sans-serif;
   font-size: 14pt;
   font-weight: 200;
@@ -233,6 +232,10 @@ nav h1 a {
   margin: 16px 20px 10px;
   text-transform: uppercase;
   display: block;
+}
+.restaurants-list li .title,
+.restaurants-list li .title a {
+  color: #417ca3;
 }
 .restaurants-list p {
   margin: 0 20px;
