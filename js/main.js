@@ -170,11 +170,16 @@ createRestaurantHTML = restaurant => {
 
     const image = document.createElement("img");
     image.className = "restaurant-img";
+    image.sizes = "(max-width: 768px) 100vw, 768px";
+    image.srcset = DBHelper.imageSetUrlForRestaurant(restaurant);
     image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    image.alt = `Restaurant ${restaurant.name} image.`;
     li.append(image);
 
-    const name = document.createElement("h1");
+    const name = document.createElement("a");
+    name.href = DBHelper.urlForRestaurant(restaurant);
     name.innerHTML = restaurant.name;
+    name.classList = "title";
     li.append(name);
 
     const neighborhood = document.createElement("p");
@@ -186,8 +191,11 @@ createRestaurantHTML = restaurant => {
     li.append(address);
 
     const more = document.createElement("a");
+    const sr = document.createElement("span")
     more.innerHTML = "View Details";
+    more.classList = "btn"
     more.href = DBHelper.urlForRestaurant(restaurant);
+    more.setAttribute('aria-label', `View ${restaurant.name} Details`);
     li.append(more);
 
     return li;
