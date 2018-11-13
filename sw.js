@@ -27,13 +27,12 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then( cacheNames => {
+        caches.keys().then( keys => {
             return Promise.all(
-                cacheNames.filter( name => {
-                    return name.startsWith("restaurant-") && name != cacheName;
-                })
-                .map( name => {
-                    return caches.delete( name );
+                keys.map( (key, i ) => {
+                    if (key !== cacheName) {
+                        return caches.delete(keys[i]);
+                    }
                 })
             )
         })
@@ -43,11 +42,30 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request)
-        .then(response => {
-            if (response) {
+        .then( response => {
+            if(response) {
                 return response;
             }
-            return fetch(event.request);
+            requestBackend(event);
         })
-    );
-})
+    )
+});
+
+function requestBackend(event) {
+    var url = event.request.clone();
+    return fetch(url)
+        .then( response => {
+            if(!response || response.status !== 200 || response.type !== 'basic') {
+                return response;
+            }
+            
+            let response = response.clone();
+
+            cache.open(cacheName)
+            .then( cache => {
+                cache.put(event.request, response);
+            });
+
+            return response;
+        })
+}
