@@ -59,11 +59,11 @@ function requestBackend(event) {
                 return response;
             }
             
-            let response = response.clone();
+            let resp = response.clone();
 
             cache.open(cacheName)
             .then( cache => {
-                cache.put(event.request, response);
+                cache.put(event.request, resp);
             });
 
             return response;
