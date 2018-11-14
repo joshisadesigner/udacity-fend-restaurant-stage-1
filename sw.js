@@ -1,6 +1,8 @@
+let CACHE_NAME = "restaurants-v1";;
+
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open('restaurants-v1')
+        caches.open(CACHE_NAME)
             .then(cache => {
                 return cache.addAll([
                     "/",
@@ -28,6 +30,22 @@ self.addEventListener('install', event => {
                 ]);
             })
     );
+})
+
+self.addEventListener('active', event => {
+    event.waitUntil(
+        caches.keys()
+            .then( cachenames => {
+                return Promise.all(
+                    cachenames.filter( cacheName => {
+                        return cacheName.startsWith('restaurants-') &&
+                        cacheName != CACHE_NAME;
+                    }).map( cacheName => {
+                        return cache.delete(cacheName);
+                    })
+                )
+            })
+    )
 })
 
 self.addEventListener('fetch', event => {
