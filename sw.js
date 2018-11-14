@@ -5,7 +5,9 @@ self.addEventListener('install', event => {
                 return cache.addAll([
                     "/",
                     "/css/styles.css",
+                    "/js/dbhelper.js",
                     "/js/main.js",
+                    "/js/restaurant_info.js",
                     "/data/restaurants.json",
                     "/img/1_320.jpg",
                     "/img/2_320.jpg",
@@ -18,7 +20,11 @@ self.addEventListener('install', event => {
                     "/img/9_320.jpg",
                     "/img/10_320.jpg",
                     "/index.html",
-                    "/restaurant.html"
+                    "/restaurant.html",
+                    "/sw-reg.js",
+                    "/sw.js",
+                    "https://unpkg.com/leaflet@1.3.1/dist/leaflet.css",
+                    "https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
                 ]);
             })
     );
